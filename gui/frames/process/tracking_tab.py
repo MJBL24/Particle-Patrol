@@ -38,7 +38,7 @@ def create_tracking_frame(
     # weighted centroid toggle
     create_option_section(
         frame, row, ct.weighted_centroid,
-        "Weighted Centroid (sub-pixel)",
+        "Weighted Centroid",
         "Use the intensity-weighted centroid (sits on the particle's bright peak) "
         "instead of the binary centroid. More accurate, requires Binning = 1."
     )
