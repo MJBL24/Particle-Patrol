@@ -127,10 +127,11 @@ class VisualizationConfig(BaseConfig):
 @dataclass
 class ModuleConfig(BaseConfig):
     """Analysis module selection and coordination"""
-    
+
     image_binarization: bool = False
     optical_flow: bool = False
     intensity_distribution: bool = False
+    tracking: bool = False          # <-- add
     
 @dataclass
 class ReaderConfig(BaseConfig):
@@ -157,6 +158,21 @@ class BinarizationConfig(BaseConfig):
     enable_physical_units: bool = False
     invert_binarization: bool = False
 
+@dataclass
+@dataclass
+class TrackingConfig(BaseConfig):
+    overlap_threshold: float = 0.5
+    gate_mode: str = "report"
+    connectivity: int = 3
+    time_gap: int = 0
+    spatial_dilation: int = 0
+    min_track_length: int = 2
+    min_component_size: int = 0
+    threshold_offset: float = 0.1
+    bin_factor: int = 1
+    invert_binarization: bool = False
+    min_particle_size: int = 0
+    weighted_centroid: bool = False
 
 @dataclass
 class OpticalFlowConfig(BaseConfig):
@@ -178,6 +194,7 @@ class AnalysisConfig(BaseConfig):
     comparison: ComparisonConfig = field(default_factory=ComparisonConfig)
     visualization: VisualizationConfig = field(default_factory=VisualizationConfig)
 
+
 @dataclass
 class BarcodeConfig(BaseConfig):
     channels: ChannelConfig = field(default_factory=ChannelConfig)
@@ -185,8 +202,10 @@ class BarcodeConfig(BaseConfig):
     intensity_distribution_parameters: IntensityDistributionConfig = field(default_factory=IntensityDistributionConfig)
     modules: ModuleConfig = field(default_factory=ModuleConfig)
     optical_flow_parameters: OpticalFlowConfig = field(default_factory=OpticalFlowConfig)
+    tracking_parameters: TrackingConfig = field(default_factory=TrackingConfig)   # <-- add
     reader: ReaderConfig = field(default_factory=ReaderConfig)
     writer: WriterConfig = field(default_factory=WriterConfig)
+    
     
     def save_to_yaml(self, filepath: str) -> None:
         """Save configuration to YAML file."""
@@ -317,6 +336,7 @@ GUI_CONFIG_CLASSES = [
     ComparisonConfig,
     ModuleConfig,
     VisualizationConfig,
+    TrackingConfig,        # <-- add
 ]
 
 

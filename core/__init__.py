@@ -13,6 +13,7 @@ from core.config import (
     BinarizationConfig,
     OpticalFlowConfig,
     IntensityDistributionConfig,
+    TrackingConfig,          # <-- add
     BarcodeConfig,
     PreviewConfig,
     AggregationConfig,
@@ -43,6 +44,7 @@ __all__ = [
     "BinarizationConfig",
     "OpticalFlowConfig",
     "IntensityDistributionConfig",
+    "TrackingConfig",        # <-- add
     "BarcodeConfig",
     "PreviewConfig",
     "AggregationConfig",

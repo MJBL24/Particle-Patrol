@@ -416,11 +416,13 @@ class ModuleConfigGUI:
     image_binarization: tk.BooleanVar = field(init=False)
     optical_flow: tk.BooleanVar = field(init=False)
     intensity_distribution: tk.BooleanVar = field(init=False)
+    tracking: tk.BooleanVar = field(init=False)
 
     def __post_init__(self):
         self.image_binarization = tk.BooleanVar(value=self._core_config.image_binarization)
         self.optical_flow = tk.BooleanVar(value=self._core_config.optical_flow)
         self.intensity_distribution = tk.BooleanVar(value=self._core_config.intensity_distribution)
+        self.tracking = tk.BooleanVar(value=self._core_config.tracking)
 
     @property
     def config(self) -> ModuleConfig:
@@ -429,6 +431,7 @@ class ModuleConfigGUI:
             image_binarization=self.image_binarization.get(),
             optical_flow=self.optical_flow.get(),
             intensity_distribution=self.intensity_distribution.get(),
+            tracking=self.tracking.get(),
         )
 
     def update_gui(self, new_config: ModuleConfig):
@@ -437,6 +440,7 @@ class ModuleConfigGUI:
         self.image_binarization.set(new_config.image_binarization)
         self.optical_flow.set(new_config.optical_flow)
         self.intensity_distribution.set(new_config.intensity_distribution)
+        self.tracking.set(new_config.tracking)
 
 @dataclass
 class VisualizationConfigGUI:
@@ -681,6 +685,72 @@ class VisualizationConfigGUI:
         self._indices.set(new_config._indices)
 
 @dataclass
+class TrackingConfigGUI:
+    """Auto-generated GUI wrapper for TrackingConfig"""
+    _core_config: TrackingConfig = field(default_factory=TrackingConfig)
+
+    overlap_threshold: tk.DoubleVar = field(init=False)
+    gate_mode: tk.StringVar = field(init=False)
+    connectivity: tk.IntVar = field(init=False)
+    time_gap: tk.IntVar = field(init=False)
+    min_track_length: tk.IntVar = field(init=False)
+    min_component_size: tk.IntVar = field(init=False)
+    threshold_offset: tk.DoubleVar = field(init=False)
+    bin_factor: tk.IntVar = field(init=False)
+    invert_binarization: tk.BooleanVar = field(init=False)
+    spatial_dilation: tk.IntVar = field(init=False)
+    min_particle_size: tk.IntVar = field(init=False)
+    weighted_centroid: tk.BooleanVar = field(init=False)
+
+    def __post_init__(self):
+        self.overlap_threshold = tk.DoubleVar(value=self._core_config.overlap_threshold)
+        self.gate_mode = tk.StringVar(value=self._core_config.gate_mode)
+        self.connectivity = tk.IntVar(value=self._core_config.connectivity)
+        self.time_gap = tk.IntVar(value=self._core_config.time_gap)
+        self.min_track_length = tk.IntVar(value=self._core_config.min_track_length)
+        self.min_component_size = tk.IntVar(value=self._core_config.min_component_size)
+        self.threshold_offset = tk.DoubleVar(value=self._core_config.threshold_offset)
+        self.bin_factor = tk.IntVar(value=self._core_config.bin_factor)
+        self.invert_binarization = tk.BooleanVar(value=self._core_config.invert_binarization)
+        self.spatial_dilation = tk.IntVar(value=self._core_config.spatial_dilation)
+        self.min_particle_size = tk.IntVar(value=self._core_config.min_particle_size)
+        self.weighted_centroid = tk.BooleanVar(value=self._core_config.weighted_centroid)
+
+    @property
+    def config(self) -> TrackingConfig:
+        """Get current config from GUI values"""
+        return TrackingConfig(
+            overlap_threshold=self.overlap_threshold.get(),
+            gate_mode=self.gate_mode.get(),
+            connectivity=self.connectivity.get(),
+            time_gap=self.time_gap.get(),
+            min_track_length=self.min_track_length.get(),
+            min_component_size=self.min_component_size.get(),
+            threshold_offset=self.threshold_offset.get(),
+            bin_factor=self.bin_factor.get(),
+            invert_binarization=self.invert_binarization.get(),
+            spatial_dilation=self.spatial_dilation.get(),
+            min_particle_size=self.min_particle_size.get(),
+            weighted_centroid=self.weighted_centroid.get(),
+        )
+
+    def update_gui(self, new_config: TrackingConfig):
+        """Update GUI from new config values"""
+        self._core_config = new_config
+        self.overlap_threshold.set(new_config.overlap_threshold)
+        self.gate_mode.set(new_config.gate_mode)
+        self.connectivity.set(new_config.connectivity)
+        self.time_gap.set(new_config.time_gap)
+        self.min_track_length.set(new_config.min_track_length)
+        self.min_component_size.set(new_config.min_component_size)
+        self.threshold_offset.set(new_config.threshold_offset)
+        self.bin_factor.set(new_config.bin_factor)
+        self.invert_binarization.set(new_config.invert_binarization)
+        self.spatial_dilation.set(new_config.spatial_dilation)
+        self.min_particle_size.set(new_config.min_particle_size)
+        self.weighted_centroid.set(new_config.weighted_centroid)
+
+@dataclass
 class BarcodeConfigGUI:
     """Auto-generated master GUI configuration"""
     _core_config: BarcodeConfig = field(default_factory=BarcodeConfig)
@@ -690,6 +760,7 @@ class BarcodeConfigGUI:
     intensity_distribution_parameters: IntensityDistributionConfigGUI = field(init=False)
     modules: ModuleConfigGUI = field(init=False)
     optical_flow_parameters: OpticalFlowConfigGUI = field(init=False)
+    tracking_parameters: TrackingConfigGUI = field(init=False)
     reader: ReaderConfigGUI = field(init=False)
     writer: WriterConfigGUI = field(init=False)
 
@@ -699,6 +770,7 @@ class BarcodeConfigGUI:
         self.intensity_distribution_parameters = IntensityDistributionConfigGUI(self._core_config.intensity_distribution_parameters)
         self.modules = ModuleConfigGUI(self._core_config.modules)
         self.optical_flow_parameters = OpticalFlowConfigGUI(self._core_config.optical_flow_parameters)
+        self.tracking_parameters = TrackingConfigGUI(self._core_config.tracking_parameters)
         self.reader = ReaderConfigGUI(self._core_config.reader)
         self.writer = WriterConfigGUI(self._core_config.writer)
 
@@ -711,6 +783,7 @@ class BarcodeConfigGUI:
             intensity_distribution_parameters=self.intensity_distribution_parameters.config,
             modules=self.modules.config,
             optical_flow_parameters=self.optical_flow_parameters.config,
+            tracking_parameters=self.tracking_parameters.config,
             reader=self.reader.config,
             writer=self.writer.config,
         )

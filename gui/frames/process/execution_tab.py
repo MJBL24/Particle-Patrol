@@ -209,6 +209,15 @@ def create_execution_frame(parent, config: BarcodeConfigGUI, input_config: Input
     )
     row_idx += 2
 
+    create_option_section(
+        frame,
+        row_idx,
+        cm.tracking,
+        "Particle Tracking",
+        "Evaluate file(s) using the connectivity-based Particle Tracking branch (will generate a trajectory plot and MSD .CSV).",
+    )
+    row_idx += 2
+
     tk.Label(frame, text="Handling Dim Data", font=header).grid(
         row=row_idx, column=0, columnspan=3, sticky="w", padx=(5, 5), pady=(10, 5)
     )
